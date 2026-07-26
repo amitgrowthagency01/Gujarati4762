@@ -1,525 +1,206 @@
-<!DOCTYPE html>
-<html lang="gu">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-    <title>GUJRATI TRADER 📈 — Stock Market Channel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+<style>
+/* Pure content ko center mein laane ke liye wrapper */
+.sio-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+.sio-landing-wrap{
+  max-width: 550px; 
+  width: 100%;
+  font-family: 'Poppins', system-ui, sans-serif;
+  text-align: center;
+}
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: linear-gradient(145deg, #0a1628, #0f1a30);
-        }
+/* Pulse Effect Animation */
+@keyframes pulse-gold {
+  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
 
-        .card {
-            max-width: 460px;
-            width: 100%;
-            background: #0d1a2e;
-            border-radius: 32px;
-            padding: 36px 28px 32px;
-            border: 1px solid rgba(251, 191, 36, 0.08);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
-        }
+.sio-btn{
+  display: block;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #0a0a12;
+  padding: 18px 10px;
+  font-size: 16px; 
+  font-weight: 800;
+  border-radius: 50px; 
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  animation: pulse-gold 2s infinite;
+  border: none;
+  width: 100%; 
+  box-sizing: border-box;
+  margin: 10px 0;
+}
 
-        .card::before {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #fbbf24, #3b82f6);
-            border-radius: 4px;
-            margin: 0 auto 22px;
-            opacity: 0.6;
-        }
+.sio-btn:hover{
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+  transform: scale(1.02);
+}
 
-        /* ===== HEADER ===== */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+.sio-profile{
+  margin: 15px 0;
+}
 
-        .badge {
-            background: rgba(59, 130, 246, 0.06);
-            padding: 4px 16px;
-            border-radius: 60px;
-            font-size: 9px;
-            font-weight: 700;
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.06);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
+.sio-avatar{
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
 
-        .verified {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 9px;
-            font-weight: 600;
-            color: #fbbf24;
-            background: rgba(251, 191, 36, 0.06);
-            padding: 3px 12px;
-            border-radius: 60px;
-            border: 1px solid rgba(251, 191, 36, 0.06);
-        }
+.sio-avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-        .verified svg {
-            width: 14px;
-            height: 14px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2.5;
-        }
+.sio-headline{
+  color: #f59e0b;
+  font-size: 26px;
+  font-weight: 800;
+  margin: 10px 0;
+  text-align: center;
+}
 
-        /* ===== PROFILE ===== */
-        .profile {
-            text-align: center;
-            margin-bottom: 22px;
-        }
+.sio-subheadline{
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  text-align: center;
+}
 
-        .avatar-wrap {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 14px;
-        }
+.sio-subheadline .hl{
+  color: #f59e0b;
+  font-weight: 600;
+}
 
-        .avatar-ring {
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            width: calc(100% + 8px);
-            height: calc(100% + 8px);
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #fbbf24);
-            opacity: 0.2;
-            animation: spinRing 8s linear infinite;
-        }
+.sio-features{
+  margin: 0 auto;
+  padding: 5px 0;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
 
-        @keyframes spinRing {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+.sio-feature{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+  width: 100%;
+}
 
-        .avatar {
-            position: relative;
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255, 255, 255, 0.02);
-            background: #0a1628;
-            display: block;
-        }
+.sio-feature p {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: center;
+  color: #1e293b;
+}
 
-        .channel-name {
-            font-size: 28px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.3px;
-            line-height: 1.2;
-        }
+.sio-tick{
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #f59e0b;
+  font-size: 14px;
+}
 
-        .channel-name span {
-            background: linear-gradient(135deg, #60a5fa, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.sio-disclaimer{
+  margin-top: 25px;
+  font-size: 11px;
+  color: #777;
+  line-height: 1.4;
+  text-align: center;
+}
 
-        .subhead {
-            font-size: 14px;
-            color: #94a3b8;
-            font-weight: 500;
-            margin-top: 4px;
-            line-height: 1.5;
-        }
+.sio-disclaimer b{
+  color: #b45309;
+}
 
-        .subhead .hl {
-            color: #fbbf24;
-        }
+@media (max-width:480px){
+  .sio-btn{font-size: 14px; padding: 15px 5px; white-space: normal;}
+  .sio-headline{font-size: 22px}
+  .sio-feature p{font-size: 12px; white-space: normal;}
+}
+</style>
 
-        .subhead .gu {
-            color: #60a5fa;
-        }
+<div class="sio-main-container">
+  <div class="sio-landing-wrap">
 
-        /* ===== BUTTONS ===== */
-        .cta-primary,
-        .cta-secondary {
-            display: block;
-            width: 100%;
-            padding: 18px 0;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: 700;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 60px;
-            transition: all 0.25s ease;
-            letter-spacing: 0.3px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.08);
-        }
+    <!-- ===== BUTTON 1 – TOP ===== -->
+    <a class="sio-btn" href="https://t.me/+_Tpe9j6IMtozMjQ1" target="_blank" rel="noopener noreferrer">
+      🚀 JOIN TELEGRAM CHANNEL
+    </a>
 
-        .cta-primary:hover,
-        .cta-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
-        }
-
-        .cta-primary:active,
-        .cta-secondary:active {
-            transform: scale(0.97);
-        }
-
-        .cta-primary .sub,
-        .cta-secondary .sub {
-            display: block;
-            font-size: 10px;
-            font-weight: 400;
-            opacity: 0.85;
-            margin-top: 2px;
-            letter-spacing: 0.3px;
-        }
-
-        .cta-primary {
-            margin-bottom: 20px;
-        }
-
-        .cta-secondary {
-            margin-bottom: 18px;
-        }
-
-        /* ===== STATS ===== */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            padding: 14px 0;
-            margin-bottom: 20px;
-            border-top: 1px solid rgba(59, 130, 246, 0.04);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.04);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-item .number {
-            font-size: 20px;
-            font-weight: 800;
-            color: #fbbf24;
-        }
-
-        .stat-item .label {
-            font-size: 8px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        .stat-item .label-gu {
-            font-size: 9px;
-            color: #94a3b8;
-            margin-top: 2px;
-        }
-
-        /* ===== FEATURES ===== */
-        .features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 22px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #e2e8f0;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(59, 130, 246, 0.04);
-        }
-
-        .feature-item .icon {
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .feature-item .text .en {
-            display: block;
-            font-weight: 500;
-            font-size: 11px;
-        }
-
-        .feature-item .text .gu {
-            display: block;
-            font-size: 9px;
-            color: #94a3b8;
-            font-weight: 400;
-        }
-
-        /* ===== TRUST BADGES ===== */
-        .trust-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .trust-badge {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 9px;
-            font-weight: 500;
-            color: #94a3b8;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 4px 14px;
-            border-radius: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-        }
-
-        .trust-badge svg {
-            width: 14px;
-            height: 14px;
-            color: #fbbf24;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            margin-top: 18px;
-            padding-top: 14px;
-            border-top: 1px solid rgba(59, 130, 246, 0.04);
-            text-align: center;
-        }
-
-        .footer-note {
-            font-size: 9px;
-            color: #94a3b8;
-            line-height: 1.6;
-        }
-
-        .footer-note a {
-            color: #60a5fa;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .footer-note a:hover {
-            color: #93bbfc;
-        }
-
-        .footer-disclaimer {
-            font-size: 7px;
-            color: #4a5568;
-            margin-top: 2px;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 380px) {
-            .card {
-                padding: 24px 16px 20px;
-                border-radius: 28px;
-            }
-            .avatar {
-                width: 72px;
-                height: 72px;
-            }
-            .channel-name {
-                font-size: 22px;
-            }
-            .subhead {
-                font-size: 12px;
-            }
-            .stat-item .number {
-                font-size: 18px;
-            }
-            .stats {
-                gap: 8px;
-            }
-            .cta-primary,
-            .cta-secondary {
-                font-size: 15px;
-                padding: 16px 0;
-            }
-            .feature-item {
-                font-size: 12px;
-                padding: 8px 10px;
-            }
-            .feature-item .text .en {
-                font-size: 10px;
-            }
-            .feature-item .text .gu {
-                font-size: 8px;
-            }
-            .features {
-                gap: 6px;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .card {
-                max-width: 440px;
-                padding: 40px 32px 32px;
-            }
-            .avatar {
-                width: 110px;
-                height: 110px;
-            }
-            .channel-name {
-                font-size: 32px;
-            }
-            .stat-item .number {
-                font-size: 24px;
-            }
-            .cta-primary,
-            .cta-secondary {
-                font-size: 20px;
-                padding: 20px 0;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-
-        <!-- Header -->
-        <div class="header">
-            <span class="badge">📊 Intraday Option</span>
-            <span class="verified">
-                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-                Trusted
-            </span>
-        </div>
-
-        <!-- Profile -->
-        <div class="profile">
-            <div class="avatar-wrap">
-                <div class="avatar-ring"></div>
-                <img class="avatar"
-                     src="https://i.ibb.co/XkYjdjxZ/TAdh9-Nf1xe-RYRp-PDdrnr-AF7u-FPM9-QWavr-Nz167-JGAMH93hh-Uun-PNz-Euo-Mj9zuf3-WBAfd9-Ykwg-Yysa-Ueaci-MSOht.jpg"
-                     alt="GUJRATI TRADER"
-                     loading="lazy"
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect width=%22120%22 height=%22120%22 fill=%22%230a1628%22/%3E%3Ctext x=%2260%22 y=%2270%22 text-anchor=%22middle%22 font-size=%2236%22 fill=%22%2360a5fa%22 font-family=%22sans-serif%22%3EGT%3C/text%3E%3C/svg%3E'">
-            </div>
-            <div class="channel-name"><span>GUJRATI TRADER 📈</span></div>
-            <div class="subhead">
-                <span class="hl">Intraday Option</span> • Nifty &amp; BankNifty
-                <br>
-                <span class="gu">ગુજરાતી ટ્રેડર 📈</span>
-            </div>
-        </div>
-
-        <!-- ===== BUTTON 1 ===== -->
-        <a href="https://t.me/+_Tpe9j6IMtozMjQ1" class="cta-primary" target="_blank" rel="noopener noreferrer">
-            🚀 Join Telegram Channel
-            <span class="sub">ટેલિગ્રામ ચેનલ જોડાઓ</span>
-        </a>
-
-        <!-- Stats -->
-        <div class="stats">
-            <div class="stat-item">
-                <div class="number">8.5K+</div>
-                <div class="label">Traders</div>
-                <div class="label-gu">ટ્રેડર્સ</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">93%</div>
-                <div class="label">Accuracy</div>
-                <div class="label-gu">ચોકસાઈ</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">10+</div>
-                <div class="label">Years</div>
-                <div class="label-gu">વર્ષો</div>
-            </div>
-        </div>
-
-        <!-- Features -->
-        <div class="features">
-            <div class="feature-item">
-                <span class="icon">📊</span>
-                <span class="text">
-                    <span class="en">Live Nifty &amp; BankNifty</span>
-                    <span class="gu">લાઈવ Nifty &amp; BankNifty</span>
-                </span>
-            </div>
-            <div class="feature-item">
-                <span class="icon">🎯</span>
-                <span class="text">
-                    <span class="en">Intraday Option Calls</span>
-                    <span class="gu">ઇન્ટ્રાડે ઓપ્શન કોલ્સ</span>
-                </span>
-            </div>
-            <div class="feature-item">
-                <span class="icon">📈</span>
-                <span class="text">
-                    <span class="en">Technical Analysis</span>
-                    <span class="gu">ટેક્નિકલ એનાલિસિસ</span>
-                </span>
-            </div>
-            <div class="feature-item">
-                <span class="icon">🛡️</span>
-                <span class="text">
-                    <span class="en">Risk Management</span>
-                    <span class="gu">રિસ્ક મેનેજમેન્ટ</span>
-                </span>
-            </div>
-        </div>
-
-        <!-- Trust Badges -->
-        <div class="trust-badges">
-            <span class="trust-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                100% Free • ૧૦૦% મફત
-            </span>
-            <span class="trust-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-                Trusted • વિશ્વસનીય
-            </span>
-            <span class="trust-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                24/7 Support • ૨૪/૭ સપોર્ટ
-            </span>
-        </div>
-
-        <!-- ===== BUTTON 2 – IDENTICAL ===== -->
-        <a href="https://t.me/+_Tpe9j6IMtozMjQ1" class="cta-secondary" target="_blank" rel="noopener noreferrer">
-            🚀 Join Telegram Channel
-            <span class="sub">ટેલિગ્રામ ચેનલ જોડાઓ</span>
-        </a>
-
-        <!-- Footer -->
-        <div class="footer">
-            <div class="footer-note">
-                🔥 Ads by <a href="https://t.me/+CKzXLc93ze44MTdl" target="_blank" rel="noopener">@amitgrowthagency</a>
-                <br>
-                <span class="footer-disclaimer">Not affiliated with Facebook™ or Meta™.</span>
-            </div>
-        </div>
-
+    <!-- ===== PROFILE ===== -->
+    <div class="sio-profile">
+      <div class="sio-avatar">
+        <img src="https://i.ibb.co/XkYjdjxZ/TAdh9-Nf1xe-RYRp-PDdrnr-AF7u-FPM9-QWavr-Nz167-JGAMH93hh-Uun-PNz-Euo-Mj9zuf3-WBAfd9-Ykwg-Yysa-Ueaci-MSOht.jpg" alt="GUJRATI TRADER">
+      </div>
+      <div class="sio-headline">GUJRATI TRADER 📈</div>
+      <div class="sio-subheadline">
+        <span class="hl">Intraday Option</span> • Nifty &amp; BankNifty
+        <br>
+        <span style="color: #8b5cf6; font-weight: 600;">ગુજરાતી ટ્રેડર 📈</span>
+      </div>
     </div>
 
-</body>
-</html>
+    <!-- ===== FEATURES ===== -->
+    <div class="sio-features">
+      <div class="sio-feature">
+        <div class="sio-tick">✓</div>
+        <p>Live Nifty &amp; BankNifty Analysis</p>
+      </div>
+      <div class="sio-feature">
+        <div class="sio-tick">✓</div>
+        <p>Intraday Option Calls with 93% Accuracy</p>
+      </div>
+      <div class="sio-feature">
+        <div class="sio-tick">✓</div>
+        <p>Technical Analysis &amp; Risk Management</p>
+      </div>
+      
+      <div style="margin: 15px 0; font-weight: 800; color: #f59e0b; font-size: 16px;">
+        📊 8.5K+ Traders • 10+ Years Experience
+      </div>
+    </div>
+
+    <!-- ===== BUTTON 2 – BOTTOM ===== -->
+    <a class="sio-btn" href="https://t.me/+_Tpe9j6IMtozMjQ1" target="_blank" rel="noopener noreferrer">
+      🚀 JOIN TELEGRAM CHANNEL
+    </a>
+
+    <!-- ===== DISCLAIMER ===== -->
+    <div class="sio-disclaimer">
+      <b>Disclaimer:</b> Educational content only. Trading involves risk. Past performance doesn't guarantee future returns.
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ADS BY ===== -->
+<div style="background:linear-gradient(90deg,#4f46e5,#9333ea,#ec4899);padding:10px 15px;border-radius:12px;text-align:center;font-family:'Poppins',sans-serif;color:#fff;font-size:13px;white-space:nowrap;box-shadow:0 4px 15px rgba(0,0,0,0.2);display:inline-block;border:1px solid rgba(255,255,255,0.2);">
+  🔥 Ads by <a href="https://t.me/+CKzXLc93ze44MTdl" style="color:#4da6ff;text-decoration:none;font-weight:800;text-shadow:0 0 8px #4da6ff;">@amitgrowthagency</a> • Boost Your Reach 🚀
+</div>
