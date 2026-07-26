@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+    <title>GUJRATI TRADER 📈 — Stock Market Channel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #0a0c10;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* animated grid background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(234, 88, 12, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(234, 88, 12, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* glow orbs - rusty orange */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(140px);
+            pointer-events: none;
+            opacity: 0.04;
+            z-index: 0;
+        }
+        .orb-1 { width: 600px; height: 600px; background: #ea580c; top: -250px; right: -150px; animation: floatOrb 14s ease-in-out infinite alternate; }
+        .orb-2 { width: 500px; height: 500px; background: #f59e0b; bottom: -200px; left: -150px; animation: floatOrb 18s ease-in-out infinite alternate-reverse; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, -50px) scale(1.2); }
+        }
+
+        /* ===== CARD – Rugged Premium ===== */
+        .card {
+            max-width: 460px;
+            width: 100%;
+            background: rgba(15, 17, 21, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px 24px 28px;
+            border: 1px solid rgba(234, 88, 12, 0.06);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* top accent - orange slash */
+        .card::before {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #ea580c, #f59e0b);
+            border-radius: 4px;
+            margin: 0 auto 20px;
+            opacity: 0.7;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .badge {
+            background: rgba(234, 88, 12, 0.04);
+            padding: 4px 14px;
+            border-radius: 4px;
+            font-size: 8px;
+            font-weight: 700;
+            color: #ea580c;
+            border: 1px solid rgba(234, 88, 12, 0.04);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .verified {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 8px;
+            font-weight: 600;
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.04);
+            padding: 3px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(245, 158, 11, 0.04);
+        }
+
+        .verified svg {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        /* ===== PROFILE – Left Aligned ===== */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 6px 8px;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 16px;
+            border: 1px solid rgba(234, 88, 12, 0.02);
+        }
+
+        .avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar-ring {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            border-radius: 50%;
+            border: 1px solid rgba(234, 88, 12, 0.1);
+        }
+
+        .avatar {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(234, 88, 12, 0.04);
+            background: #0a0c10;
+            display: block;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info .name {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+
+        .profile-info .name span {
+            color: #ea580c;
+        }
+
+        .profile-info .tagline {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+
+        .profile-info .tagline .hl {
+            color: #f59e0b;
+        }
+
+        .profile-info .tagline .gu {
+            color: #ea580c;
+        }
+
+        /* ================================================================ */
+        /* ===== BOTH BUTTONS – IDENTICAL RUSTY ORANGE ===== */
+        /* ================================================================ */
+
+        .cta-primary,
+        .cta-secondary {
+            display: block;
+            width: 100%;
+            padding: 16px 0;
+            background: linear-gradient(135deg, #ea580c, #f59e0b);
+            color: #0a0c10;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+            letter-spacing: 0.3px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(234, 88, 12, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary::before,
+        .cta-secondary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cta-primary:hover::before,
+        .cta-secondary:hover::before {
+            opacity: 1;
+        }
+
+        .cta-primary:hover,
+        .cta-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(234, 88, 12, 0.12);
+        }
+
+        .cta-primary:active,
+        .cta-secondary:active {
+            transform: scale(0.97);
+        }
+
+        .cta-primary .sub,
+        .cta-secondary .sub {
+            display: block;
+            font-size: 9px;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 2px;
+            letter-spacing: 0.3px;
+        }
+
+        /* positioning */
+        .cta-primary {
+            margin-bottom: 18px;
+        }
+
+        .cta-secondary {
+            margin-bottom: 16px;
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            margin-bottom: 18px;
+            border-top: 1px solid rgba(234, 88, 12, 0.02);
+            border-bottom: 1px solid rgba(234, 88, 12, 0.02);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-size: 18px;
+            font-weight: 800;
+            color: #f59e0b;
+        }
+
+        .stat-item .label {
+            font-size: 7px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 2px;
+        }
+
+        .stat-item .label-gu {
+            font-size: 8px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        /* ===== FEATURES – 2 Column ===== */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 450;
+            color: #e2e8f0;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 8px;
+            border: 1px solid rgba(234, 88, 12, 0.02);
+            transition: 0.2s;
+        }
+
+        .feature-item:hover {
+            background: rgba(234, 88, 12, 0.02);
+            border-color: rgba(234, 88, 12, 0.04);
+        }
+
+        .feature-item .icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .feature-item .text .en {
+            display: block;
+            font-weight: 500;
+            font-size: 10px;
+        }
+
+        .feature-item .text .gu {
+            display: block;
+            font-size: 8px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        /* ===== TRUST BADGES ===== */
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 8px;
+            font-weight: 500;
+            color: #94a3b8;
+            background: rgba(255, 255, 255, 0.01);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .trust-badge svg {
+            width: 12px;
+            height: 12px;
+            color: #f59e0b;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(234, 88, 12, 0.02);
+            text-align: center;
+        }
+
+        .footer-note {
+            font-size: 8px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .footer-note a {
+            color: #ea580c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-note a:hover {
+            color: #f59e0b;
+        }
+
+        .footer-disclaimer {
+            font-size: 6px;
+            color: #334155;
+            margin-top: 2px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 380px) {
+            .card {
+                padding: 20px 14px 16px;
+                border-radius: 16px;
+            }
+            .profile {
+                flex-direction: column;
+                text-align: center;
+                padding: 6px 4px;
+            }
+            .profile-info {
+                text-align: center;
+            }
+            .avatar {
+                width: 56px;
+                height: 56px;
+            }
+            .profile-info .name {
+                font-size: 16px;
+            }
+            .profile-info .tagline {
+                font-size: 9px;
+            }
+            .stat-item .number {
+                font-size: 16px;
+            }
+            .stats {
+                gap: 8px;
+            }
+            .cta-primary,
+            .cta-secondary {
+                font-size: 14px;
+                padding: 14px 0;
+            }
+            .feature-item {
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+            .feature-item .text .en {
+                font-size: 9px;
+            }
+            .feature-item .text .gu {
+                font-size: 7px;
+            }
+            .features {
+                gap: 4px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .card {
+                max-width: 440px;
+                padding: 36px 28px 30px;
+            }
+            .avatar {
+                width: 76px;
+                height: 76px;
+            }
+            .profile-info .name {
+                font-size: 22px;
+            }
+            .stat-item .number {
+                font-size: 22px;
+            }
+            .cta-primary,
+            .cta-secondary {
+                font-size: 18px;
+                padding: 18px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- background -->
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="card">
+
+        <!-- Header -->
+        <div class="header">
+            <span class="badge">🔥 Intraday Option</span>
+            <span class="verified">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                Trusted
+            </span>
+        </div>
+
+        <!-- Profile -->
+        <div class="profile">
+            <div class="avatar-wrap">
+                <div class="avatar-ring"></div>
+                <img class="avatar"
+                     src="https://i.ibb.co/XkYjdjxZ/TAdh9-Nf1xe-RYRp-PDdrnr-AF7u-FPM9-QWavr-Nz167-JGAMH93hh-Uun-PNz-Euo-Mj9zuf3-WBAfd9-Ykwg-Yysa-Ueaci-MSOht.jpg"
+                     alt="GUJRATI TRADER"
+                     loading="lazy"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect width=%22120%22 height=%22120%22 fill=%22%230a0c10%22/%3E%3Ctext x=%2260%22 y=%2270%22 text-anchor=%22middle%22 font-size=%2236%22 fill=%22%23ea580c%22 font-family=%22sans-serif%22%3EGT%3C/text%3E%3C/svg%3E'">
+            </div>
+            <div class="profile-info">
+                <div class="name"><span>GUJRATI TRADER 📈</span></div>
+                <div class="tagline">
+                    <span class="hl">Intraday Option</span> • Nifty &amp; BankNifty
+                    <br>
+                    <span class="gu">ગુજરાતી ટ્રેડર 📈</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== BUTTON 1 ===== -->
+        <a href="https://t.me/+_Tpe9j6IMtozMjQ1" class="cta-primary" target="_blank" rel="noopener noreferrer">
+            🚀 Join Telegram Channel
+            <span class="sub">ટેલિગ્રામ ચેનલ જોડાઓ</span>
+        </a>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="number">8.5K+</div>
+                <div class="label">Traders</div>
+                <div class="label-gu">ટ્રેડર્સ</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">93%</div>
+                <div class="label">Accuracy</div>
+                <div class="label-gu">ચોકસાઈ</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">10+</div>
+                <div class="label">Years</div>
+                <div class="label-gu">વર્ષો</div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-item">
+                <span class="icon">📊</span>
+                <span class="text">
+                    <span class="en">Live Nifty &amp; BankNifty</span>
+                    <span class="gu">લાઈવ Nifty &amp; BankNifty</span>
+                </span>
+            </div>
+            <div class="feature-item">
+                <span class="icon">🎯</span>
+                <span class="text">
+                    <span class="en">Intraday Option Calls</span>
+                    <span class="gu">ઇન્ટ્રાડે ઓપ્શન કોલ્સ</span>
+                </span>
+            </div>
+            <div class="feature-item">
+                <span class="icon">📈</span>
+                <span class="text">
+                    <span class="en">Technical Analysis</span>
+                    <span class="gu">ટેક્નિકલ એનાલિસિસ</span>
+                </span>
+            </div>
+            <div class="feature-item">
+                <span class="icon">🛡️</span>
+                <span class="text">
+                    <span class="en">Risk Management</span>
+                    <span class="gu">રિસ્ક મેનેજમેન્ટ</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+            <span class="trust-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                100% Free • ૧૦૦% મફત
+            </span>
+            <span class="trust-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                Trusted • વિશ્વસનીય
+            </span>
+            <span class="trust-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                24/7 Support • ૨૪/૭ સપોર્ટ
+            </span>
+        </div>
+
+        <!-- ===== BUTTON 2 – IDENTICAL ===== -->
+        <a href="https://t.me/+_Tpe9j6IMtozMjQ1" class="cta-secondary" target="_blank" rel="noopener noreferrer">
+            🚀 Join Telegram Channel
+            <span class="sub">ટેલિગ્રામ ચેનલ જોડાઓ</span>
+        </a>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-note">
+                🔥 Ads by <a href="https://t.me/+CKzXLc93ze44MTdl" target="_blank" rel="noopener">@amitgrowthagency</a>
+                <br>
+                <span class="footer-disclaimer">Not affiliated with Facebook™ or Meta™.</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
