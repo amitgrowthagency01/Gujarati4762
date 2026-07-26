@@ -1,206 +1,639 @@
 <style>
-/* Pure content ko center mein laane ke liye wrapper */
-.sio-main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: 20px;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-.sio-landing-wrap{
-  max-width: 550px; 
-  width: 100%;
-  font-family: 'Poppins', system-ui, sans-serif;
-  text-align: center;
-}
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: linear-gradient(145deg, #0a0a0f, #141420);
+        position: relative;
+        overflow-x: hidden;
+    }
 
-/* Pulse Effect Animation */
-@keyframes pulse-gold {
-  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
-  70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-}
+    /* animated background gradient */
+    .bg-animated {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at 30% 20%, #1a0a2e, #0a0a12);
+        z-index: 0;
+    }
 
-.sio-btn{
-  display: block;
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
-  color: #0a0a12;
-  padding: 18px 10px;
-  font-size: 16px; 
-  font-weight: 800;
-  border-radius: 50px; 
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  animation: pulse-gold 2s infinite;
-  border: none;
-  width: 100%; 
-  box-sizing: border-box;
-  margin: 10px 0;
-}
+    .bg-animated::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(from 0deg, transparent, rgba(255, 215, 0, 0.02), transparent, rgba(255, 215, 0, 0.02), transparent);
+        animation: rotateBg 30s linear infinite;
+    }
 
-.sio-btn:hover{
-  background: linear-gradient(135deg, #d97706, #f59e0b);
-  transform: scale(1.02);
-}
+    @keyframes rotateBg {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
-.sio-profile{
-  margin: 15px 0;
-}
+    /* glow orbs */
+    .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        pointer-events: none;
+        opacity: 0.05;
+        z-index: 0;
+    }
+    .orb-1 { width: 500px; height: 500px; background: #ffd700; top: -200px; right: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: #a78bfa; bottom: -150px; left: -100px; }
 
-.sio-avatar{
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto;
-  border: 4px solid #fff;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
+    /* main wrapper */
+    .sio-main {
+        position: relative;
+        z-index: 1;
+        max-width: 460px;
+        width: 100%;
+    }
 
-.sio-avatar img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    /* ===== CARD ===== */
+    .sio-card {
+        background: rgba(16, 20, 40, 0.75);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 40px;
+        padding: 32px 24px 28px;
+        border: 1px solid rgba(255, 215, 0, 0.06);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        transition: all 0.2s;
+    }
 
-.sio-headline{
-  color: #f59e0b;
-  font-size: 26px;
-  font-weight: 800;
-  margin: 10px 0;
-  text-align: center;
-}
+    /* top accent */
+    .sio-accent {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
 
-.sio-subheadline{
-  color: #64748b;
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 12px;
-  text-align: center;
-}
+    .sio-accent span {
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 215, 0, 0.04);
+        border: 1px solid rgba(255, 215, 0, 0.04);
+    }
 
-.sio-subheadline .hl{
-  color: #f59e0b;
-  font-weight: 600;
-}
+    .sio-accent span:nth-child(2) {
+        background: rgba(251, 191, 36, 0.04);
+        border-color: rgba(251, 191, 36, 0.08);
+    }
 
-.sio-features{
-  margin: 0 auto;
-  padding: 5px 0;
-  font-size: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-}
+    .sio-accent span:nth-child(4) {
+        background: rgba(251, 191, 36, 0.04);
+        border-color: rgba(251, 191, 36, 0.08);
+    }
 
-.sio-feature{
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  margin: 5px 0;
-  width: 100%;
-}
+    /* ===== HEADER ===== */
+    .sio-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+    }
 
-.sio-feature p {
-  margin: 0;
-  font-weight: 600;
-  white-space: nowrap;
-  text-align: center;
-  color: #1e293b;
-}
+    .sio-badge {
+        background: rgba(251, 191, 36, 0.04);
+        padding: 4px 14px;
+        border-radius: 60px;
+        font-size: 8px;
+        font-weight: 700;
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.04);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
 
-.sio-tick{
-  min-width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #fef3c7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  color: #f59e0b;
-  font-size: 14px;
-}
+    .sio-verified {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 8px;
+        font-weight: 600;
+        color: #34d399;
+        background: rgba(52, 211, 153, 0.04);
+        padding: 3px 10px;
+        border-radius: 60px;
+        border: 1px solid rgba(52, 211, 153, 0.04);
+    }
 
-.sio-disclaimer{
-  margin-top: 25px;
-  font-size: 11px;
-  color: #777;
-  line-height: 1.4;
-  text-align: center;
-}
+    .sio-verified svg {
+        width: 12px;
+        height: 12px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.5;
+    }
 
-.sio-disclaimer b{
-  color: #b45309;
-}
+    /* ===== PROFILE ===== */
+    .sio-profile {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.01);
+        border-radius: 20px;
+        border: 1px solid rgba(251, 191, 36, 0.02);
+    }
 
-@media (max-width:480px){
-  .sio-btn{font-size: 14px; padding: 15px 5px; white-space: normal;}
-  .sio-headline{font-size: 22px}
-  .sio-feature p{font-size: 12px; white-space: normal;}
-}
+    .sio-avatar-wrap {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .sio-avatar-ring {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        border-radius: 50%;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        opacity: 0.3;
+        animation: spin 6s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .sio-avatar {
+        position: relative;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(251, 191, 36, 0.04);
+        background: #1a1a2e;
+        display: block;
+    }
+
+    .sio-info {
+        flex: 1;
+    }
+
+    .sio-info .name {
+        font-size: 18px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.3px;
+        line-height: 1.2;
+    }
+
+    .sio-info .name span {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .sio-info .tagline {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 500;
+        margin-top: 2px;
+        line-height: 1.4;
+    }
+
+    .sio-info .tagline .hl {
+        color: #fbbf24;
+    }
+
+    /* ================================================================ */
+    /* ===== BUTTONS – IDENTICAL GOLD ===== */
+    /* ================================================================ */
+
+    .sio-btn {
+        display: block;
+        width: 100%;
+        padding: 16px 0;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #0a0a12;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 60px;
+        transition: all 0.25s ease;
+        letter-spacing: 0.3px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 6px 24px rgba(251, 191, 36, 0.08);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 18px;
+    }
+
+    .sio-btn::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .sio-btn:hover::before {
+        opacity: 1;
+    }
+
+    .sio-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 32px rgba(251, 191, 36, 0.15);
+    }
+
+    .sio-btn:active {
+        transform: scale(0.97);
+    }
+
+    .sio-btn .sub {
+        display: block;
+        font-size: 9px;
+        font-weight: 400;
+        opacity: 0.8;
+        margin-top: 2px;
+        letter-spacing: 0.3px;
+    }
+
+    .sio-btn-bottom {
+        margin-bottom: 0;
+        margin-top: 4px;
+    }
+
+    /* ===== STATS ===== */
+    .sio-stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 12px 0;
+        margin-bottom: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    }
+
+    .sio-stat {
+        text-align: center;
+    }
+
+    .sio-stat .number {
+        font-size: 18px;
+        font-weight: 800;
+        color: #fbbf24;
+    }
+
+    .sio-stat .label {
+        font-size: 7px;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-top: 2px;
+    }
+
+    /* ===== FEATURES – 2 Column ===== */
+    .sio-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .sio-feature {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        font-weight: 450;
+        color: #e2e8f0;
+        padding: 8px 10px;
+        background: rgba(255, 255, 255, 0.01);
+        border-radius: 14px;
+        border: 1px solid rgba(251, 191, 36, 0.02);
+        transition: 0.2s;
+    }
+
+    .sio-feature:hover {
+        background: rgba(251, 191, 36, 0.01);
+        border-color: rgba(251, 191, 36, 0.04);
+    }
+
+    .sio-feature .icon {
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .sio-feature .text .en {
+        display: block;
+        font-weight: 500;
+        font-size: 10px;
+    }
+
+    .sio-feature .text .gu {
+        display: block;
+        font-size: 8px;
+        color: #94a3b8;
+        font-weight: 400;
+    }
+
+    /* ===== TRUST BADGES ===== */
+    .sio-trust {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .sio-trust-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 8px;
+        font-weight: 500;
+        color: #94a3b8;
+        background: rgba(255, 255, 255, 0.01);
+        padding: 4px 12px;
+        border-radius: 60px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+    }
+
+    .sio-trust-item svg {
+        width: 12px;
+        height: 12px;
+        color: #34d399;
+    }
+
+    /* ===== FOOTER ===== */
+    .sio-footer {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+        text-align: center;
+    }
+
+    .sio-footer-note {
+        font-size: 8px;
+        color: #475569;
+        line-height: 1.6;
+    }
+
+    .sio-footer-note a {
+        color: #fbbf24;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .sio-footer-note a:hover {
+        color: #f59e0b;
+    }
+
+    .sio-footer-disclaimer {
+        font-size: 6px;
+        color: #334155;
+        margin-top: 2px;
+    }
+
+    /* ===== AGENCY BADGE ===== */
+    .sio-agency {
+        text-align: center;
+        margin-top: 16px;
+    }
+
+    .sio-agency a {
+        display: inline-block;
+        background: linear-gradient(90deg, #4f46e5, #9333ea, #ec4899);
+        padding: 8px 18px;
+        border-radius: 12px;
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+        font-size: 12px;
+        text-decoration: none;
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: transform 0.2s;
+    }
+
+    .sio-agency a:hover {
+        transform: scale(1.02);
+    }
+
+    .sio-agency a .link {
+        color: #6cb6ff;
+        font-weight: 800;
+        text-shadow: 0 0 8px #6cb6ff;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 380px) {
+        .sio-card {
+            padding: 20px 14px 16px;
+            border-radius: 28px;
+        }
+        .sio-profile {
+            flex-direction: column;
+            text-align: center;
+            padding: 8px 6px;
+        }
+        .sio-info {
+            text-align: center;
+        }
+        .sio-avatar {
+            width: 56px;
+            height: 56px;
+        }
+        .sio-info .name {
+            font-size: 16px;
+        }
+        .sio-info .tagline {
+            font-size: 9px;
+        }
+        .sio-stat .number {
+            font-size: 16px;
+        }
+        .sio-stats {
+            gap: 8px;
+        }
+        .sio-btn {
+            font-size: 14px;
+            padding: 14px 0;
+        }
+        .sio-feature {
+            font-size: 10px;
+            padding: 6px 8px;
+        }
+        .sio-feature .text .en {
+            font-size: 9px;
+        }
+        .sio-feature .text .gu {
+            font-size: 7px;
+        }
+        .sio-features {
+            gap: 4px;
+        }
+        .sio-trust-item {
+            font-size: 7px;
+            padding: 2px 10px;
+        }
+    }
 </style>
 
-<div class="sio-main-container">
-  <div class="sio-landing-wrap">
+<!-- ===== MAIN WRAPPER ===== -->
+<div class="sio-main">
 
-    <!-- ===== BUTTON 1 – TOP ===== -->
-    <a class="sio-btn" href="https://t.me/+_Tpe9j6IMtozMjQ1" target="_blank" rel="noopener noreferrer">
-      🚀 JOIN TELEGRAM CHANNEL
-    </a>
+    <!-- ===== CARD ===== -->
+    <div class="sio-card">
 
-    <!-- ===== PROFILE ===== -->
-    <div class="sio-profile">
-      <div class="sio-avatar">
-        <img src="https://i.ibb.co/XkYjdjxZ/TAdh9-Nf1xe-RYRp-PDdrnr-AF7u-FPM9-QWavr-Nz167-JGAMH93hh-Uun-PNz-Euo-Mj9zuf3-WBAfd9-Ykwg-Yysa-Ueaci-MSOht.jpg" alt="GUJRATI TRADER">
-      </div>
-      <div class="sio-headline">GUJRATI TRADER 📈</div>
-      <div class="sio-subheadline">
-        <span class="hl">Intraday Option</span> • Nifty &amp; BankNifty
-        <br>
-        <span style="color: #8b5cf6; font-weight: 600;">ગુજરાતી ટ્રેડર 📈</span>
-      </div>
+        <!-- Decorative dots -->
+        <div class="sio-accent">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Header -->
+        <div class="sio-header">
+            <span class="sio-badge">📊 Intraday Option</span>
+            <span class="sio-verified">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                Trusted
+            </span>
+        </div>
+
+        <!-- Profile -->
+        <div class="sio-profile">
+            <div class="sio-avatar-wrap">
+                <div class="sio-avatar-ring"></div>
+                <img class="sio-avatar"
+                     src="https://i.ibb.co/XkYjdjxZ/TAdh9-Nf1xe-RYRp-PDdrnr-AF7u-FPM9-QWavr-Nz167-JGAMH93hh-Uun-PNz-Euo-Mj9zuf3-WBAfd9-Ykwg-Yysa-Ueaci-MSOht.jpg"
+                     alt="GUJRATI TRADER"
+                     loading="lazy"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect width=%22120%22 height=%22120%22 fill=%22%231a1a2e%22/%3E%3Ctext x=%2260%22 y=%2270%22 text-anchor=%22middle%22 font-size=%2236%22 fill=%22%23fbbf24%22 font-family=%22sans-serif%22%3EGT%3C/text%3E%3C/svg%3E'">
+            </div>
+            <div class="sio-info">
+                <div class="name"><span>GUJRATI TRADER 📈</span></div>
+                <div class="tagline">
+                    <span class="hl">Intraday Option</span> • Nifty &amp; BankNifty
+                    <br>
+                    <span style="color: #a78bfa;">ગુજરાતી ટ્રેડર 📈</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== BUTTON 1 – TOP ===== -->
+        <a href="https://t.me/+_Tpe9j6IMtozMjQ1" class="sio-btn" target="_blank" rel="noopener noreferrer">
+            🚀 Join Telegram Channel
+            <span class="sub">ટેલિગ્રામ ચેનલ જોડાઓ</span>
+        </a>
+
+        <!-- Stats -->
+        <div class="sio-stats">
+            <div class="sio-stat">
+                <div class="number">8.5K+</div>
+                <div class="label">Traders</div>
+            </div>
+            <div class="sio-stat">
+                <div class="number">93%</div>
+                <div class="label">Accuracy</div>
+            </div>
+            <div class="sio-stat">
+                <div class="number">10+</div>
+                <div class="label">Years</div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="sio-features">
+            <div class="sio-feature">
+                <span class="icon">📊</span>
+                <span class="text">
+                    <span class="en">Live Nifty &amp; BankNifty</span>
+                    <span class="gu">લાઈવ Nifty &amp; BankNifty</span>
+                </span>
+            </div>
+            <div class="sio-feature">
+                <span class="icon">🎯</span>
+                <span class="text">
+                    <span class="en">Intraday Option Calls</span>
+                    <span class="gu">ઇન્ટ્રાડે ઓપ્શન કોલ્સ</span>
+                </span>
+            </div>
+            <div class="sio-feature">
+                <span class="icon">📈</span>
+                <span class="text">
+                    <span class="en">Technical Analysis</span>
+                    <span class="gu">ટેક્નિકલ એનાલિસિસ</span>
+                </span>
+            </div>
+            <div class="sio-feature">
+                <span class="icon">🛡️</span>
+                <span class="text">
+                    <span class="en">Risk Management</span>
+                    <span class="gu">રિસ્ક મેનેજમેન્ટ</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="sio-trust">
+            <span class="sio-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                100% Free
+            </span>
+            <span class="sio-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                Trusted
+            </span>
+            <span class="sio-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                24/7 Support
+            </span>
+        </div>
+
+        <!-- ===== BUTTON 2 – BOTTOM (IDENTICAL) ===== -->
+        <a href="https://t.me/+_Tpe9j6IMtozMjQ1" class="sio-btn sio-btn-bottom" target="_blank" rel="noopener noreferrer">
+            🚀 Join Telegram Channel
+            <span class="sub">ટેલિગ્રામ ચેનલ જોડાઓ</span>
+        </a>
+
+        <!-- Footer -->
+        <div class="sio-footer">
+            <div class="sio-footer-note">
+                🔥 Ads by <a href="https://t.me/+CKzXLc93ze44MTdl" target="_blank" rel="noopener">@amitgrowthagency</a>
+                <br>
+                <span class="sio-footer-disclaimer">Not affiliated with Facebook™ or Meta™.</span>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ===== FEATURES ===== -->
-    <div class="sio-features">
-      <div class="sio-feature">
-        <div class="sio-tick">✓</div>
-        <p>Live Nifty &amp; BankNifty Analysis</p>
-      </div>
-      <div class="sio-feature">
-        <div class="sio-tick">✓</div>
-        <p>Intraday Option Calls with 93% Accuracy</p>
-      </div>
-      <div class="sio-feature">
-        <div class="sio-tick">✓</div>
-        <p>Technical Analysis &amp; Risk Management</p>
-      </div>
-      
-      <div style="margin: 15px 0; font-weight: 800; color: #f59e0b; font-size: 16px;">
-        📊 8.5K+ Traders • 10+ Years Experience
-      </div>
+    <!-- Agency Badge -->
+    <div class="sio-agency">
+        <a href="https://t.me/+CKzXLc93ze44MTdl" target="_blank" rel="noopener">
+            🔥 Ads by <span class="link">@amitgrowthagency</span> • Boost Your Reach 🚀
+        </a>
     </div>
 
-    <!-- ===== BUTTON 2 – BOTTOM ===== -->
-    <a class="sio-btn" href="https://t.me/+_Tpe9j6IMtozMjQ1" target="_blank" rel="noopener noreferrer">
-      🚀 JOIN TELEGRAM CHANNEL
-    </a>
-
-    <!-- ===== DISCLAIMER ===== -->
-    <div class="sio-disclaimer">
-      <b>Disclaimer:</b> Educational content only. Trading involves risk. Past performance doesn't guarantee future returns.
-    </div>
-
-  </div>
-</div>
-
-<!-- ===== ADS BY ===== -->
-<div style="background:linear-gradient(90deg,#4f46e5,#9333ea,#ec4899);padding:10px 15px;border-radius:12px;text-align:center;font-family:'Poppins',sans-serif;color:#fff;font-size:13px;white-space:nowrap;box-shadow:0 4px 15px rgba(0,0,0,0.2);display:inline-block;border:1px solid rgba(255,255,255,0.2);">
-  🔥 Ads by <a href="https://t.me/+CKzXLc93ze44MTdl" style="color:#4da6ff;text-decoration:none;font-weight:800;text-shadow:0 0 8px #4da6ff;">@amitgrowthagency</a> • Boost Your Reach 🚀
 </div>
